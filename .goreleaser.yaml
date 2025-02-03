@@ -1,0 +1,61 @@
+project_name: siphondns
+
+builds:
+  - main: ./cmd/server
+    id: "server"
+    binary: server
+    env: [CGO_ENABLED=0]
+    flags:
+      - -trimpath
+      - -mod=vendor
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - 386
+      - amd64
+      - arm64
+    goarm:
+      - 6
+      - 7
+
+  - main: ./cmd/client
+    id: "client"
+    binary: client
+    env: [CGO_ENABLED=0]
+    flags:
+      - -trimpath
+      - -mod=vendor
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - 386
+      - amd64
+      - arm64
+    goarm:
+      - 6
+      - 7
+
+archives:
+  - 
+    id: "server"
+    builds: ['server']
+    name_template: "{{ .ProjectName }}-{{ .Binary }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}{{ if .Mips }}_{{ .Mips }}{{ end }}"
+    format: binary
+
+  - 
+    id: "client"
+    builds: ['client']
+    name_template: "{{ .ProjectName }}-{{ .Binary }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}{{ if .Mips }}_{{ .Mips }}{{ end }}"
+    format: binary
+
+release:
+  github:
+  disable: false
+
+checksum:
+  name_template: "{{ .ProjectName }}_checksums.txt"
+  algorithm: sha256
