@@ -1,6 +1,6 @@
 # SiphonDNS
 
-A PoC for techniques described in [this research](http://ttp.report/evasion/tools/2025/02/03/siphondns-covert-dns-exfiltration.html).
+A PoC for techniques described in [this research](https://ttp.report/evasion/2025/02/03/siphondns-covert-dns-exfiltration.html).
 
 Implements data exfiltration via non-standard sections of DNS. 
 
